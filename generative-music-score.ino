@@ -11,3 +11,7 @@ for (voltage = 0; voltage < 255; voltage++) {
   delay(100);
   }
 }
+
+// map(x, fromMin, fromMax, toMin, toMax) {
+//   return (x - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
+// }

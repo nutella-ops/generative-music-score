@@ -11,3 +11,8 @@
 
 ;; not sure what this output means
 (dotimes [i 255] (println (float (arduino-map i 0 (+ 1 i) 0 255))))
+
+;; arduino map source code
+;; map(x, fromMin, fromMax, toMin, toMax) {
+;;     return (x - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
+;; }
