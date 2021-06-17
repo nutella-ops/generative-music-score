@@ -1,19 +1,18 @@
-float aSection[4];
-float bSection[4];
-int five = 5;
-
+float aSection[] = {random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0};
+float bSection[] = {random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0};
+int i;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(five, OUTPUT);
 Serial.begin(115200);
 randomSeed(analogRead(0));
-float aSection[] = {random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0};
-float bSection[] = {random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0, random(10, 40)/10.0};
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  analogWrite(five, 2.2);
-  Serial.println(analogRead(0));
+  for (i = 0; i < sizeof(aSection); i++) {
+  analogWrite(5, aSection[i]);
+  Serial.println(String(aSection[i]));
+  delay(3000);
   }
+}
