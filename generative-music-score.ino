@@ -16,6 +16,6 @@ void loop() {
   Serial.print(String(", "));
   Serial.print(String(analogRead(5)));
   Serial.println(String(""));
-  delay(2000);
+  delay(1);
   }
 }
