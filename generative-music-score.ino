@@ -1,25 +1,30 @@
-int baseOctave[12];
+int baseOctave[12] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207};
 int aSection[4];
 int bSection[4];
-int i;
+int n;
+int f = baseOctave[n];
+int ioPin = 13;
 
+
+  // my replacement for tone()
+int hTone(int n) {
+    digitalWrite(ioPin, HIGH);
+    delay(1/f/2);
+    digitalWrite(ioPin, LOW);
+    delay(1/f/2);
+  }
 
 void setup() {
   // put your setup code here, to run once:
-pinMode(13, OUTPUT);
-Serial.begin(115200);
-randomSeed(analogRead(0));
-int baseOctave[] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207};
+  pinMode(ioPin, OUTPUT);
+  randomSeed(analogRead(0));
+  n = random(sizeof(baseOctave));
 }
 
 int main() {
   // put your main code here, to run repeatedly:
-  for (int i = 0; i < sizeof(baseOctave); i++) {
-    // (pin, hz, duration)
-    tone(13, baseOctave[i], 50);
-    delay(200);
+  hTone(n);
   }
-}
 
 
 // base frequency range [unsigned integer]
