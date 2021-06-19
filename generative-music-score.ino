@@ -2,11 +2,11 @@ int a, b, c, d, e, f, g, h;
 
 int a_elements[4];
 int a_size = sizeof(a_elements);
-int a_duration = 700;
+int a_duration = 90;
 
 int b_elements[4] = {e, f, g, h};
 int b_size = sizeof(b_elements);
-int b_duration = 700;
+int b_duration = 2500;
 
 int baseOctave[12] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207};
 int base_size = sizeof(baseOctave);
@@ -30,7 +30,7 @@ void loop() {
   
   for (int i = 0; i < sizeof(a_size); i++) {
     tone(ioPin, baseOctave[random(12)], a_duration);
-    delay(a_duration);
+    delay(random(25, 450));
     Serial.println(String(a_elements[i]));
     Serial.println(String(""));
   }
