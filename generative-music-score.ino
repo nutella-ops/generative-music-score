@@ -1,8 +1,6 @@
 int baseOctave[12] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207};
-int aSection[4];
-int bSection[4];
+int f;
 int n;
-int f = baseOctave[n];
 int ioPin = 13;
 
 
@@ -20,8 +18,11 @@ void setup() {
   pinMode(ioPin, OUTPUT);
   randomSeed(analogRead(0));
   n = random(sizeof(baseOctave));
+  f = baseOctave[n];
+  Serial.print(String(n));
   Serial.print(String(f));
   Serial.println(String(" Hz"));
+
 }
 
 void loop() {
