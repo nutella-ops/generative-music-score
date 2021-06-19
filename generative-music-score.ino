@@ -9,7 +9,8 @@ int b_size = sizeof(b_elements);
 int b_duration = 700;
 
 int baseOctave[12] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207};
-int base_rand = random(sizeof(baseOctave));
+int base_size = sizeof(baseOctave);
+int base_rand = random(base_size);
 
 int i;
 int ioPin = 13;
@@ -29,12 +30,16 @@ void setup() {
 
 // tone(pin, hz, duration)
 void loop() {
-  for (int i = 0; i < sizeof(baseOctave); i++) {
+  for (int i = 0; i < sizeof(a_size); i++) {
     tone(ioPin, a_elements[i], a_duration);
     delay(a_duration);
+  }
+
+  for (int i = 0; i < sizeof(b_size); i++) {
     tone(ioPin, b_elements[i], b_duration);
     delay(b_duration);
+  }
     Serial.println(String(a_elements[i]));
     Serial.println(String(b_elements[i]));
-  }
+    Serial.println(String(""));
 }
