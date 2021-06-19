@@ -27,15 +27,7 @@ void setup() {
 // tone(pin, hz, duration)
 void loop() {
   int a_elements[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
-  Serial.println(String(a_elements[0]));
-  Serial.println(String(a_elements[1]));
-  Serial.println(String(a_elements[2]));
-  Serial.println(String(a_elements[3]));
-  Serial.println(String(""));
-
-
-
-
+  
   for (int i = 0; i < sizeof(a_size); i++) {
     tone(ioPin, baseOctave[random(12)], a_duration);
     delay(a_duration);
