@@ -16,12 +16,15 @@ int hTone(int n) {
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(115200);
   pinMode(ioPin, OUTPUT);
   randomSeed(analogRead(0));
   n = random(sizeof(baseOctave));
+  Serial.print(String(f));
+  Serial.println(String(" Hz"));
 }
 
-int main() {
+void loop() {
   // put your main code here, to run repeatedly:
   hTone(n);
   }
