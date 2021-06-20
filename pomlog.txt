@@ -1,7 +1,8 @@
-day - total_time, 25 min_stints_completed
+day - total_time min_stints_completed
 
 2021
     june 
-        17 - 2.5 hrs, 6
-        18 - 5.0 hrs, 12
-             50 mins, 2 [hitman_go graph_theory]
+        17 - 2.5 hrs
+        18 - 5.0 hrs
+             50 mins [hitman_go graph_theory]
+        19 - 1.25 hrs
