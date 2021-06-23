@@ -5,20 +5,6 @@ int i;
 // audio output pin, chosen becuase of built-in LED ease of debugging
 int ioPin = 13;
 
-int A(int a_size, int a_elements, int a_note_len, int a_rest_len) {
-  // loop playing notes in section A with random parameters
-  for (int i = 0; i < a_size; i++) {
-    tone(ioPin, a_elements[i], a_note_len[i]); // tone(Pin, Frequency, Duration)
-    delay(a_rest_len[i]); // musical rest
-  }
-}
-
-// // loop playing notes in section B with random parameters
-// for (int i = 0; i < b_size; i++) {
-//   tone(ioPin, b_elements[i], b_note_len[i]); // tone(Pin, Frequency, Duration)
-//   delay(b_rest_len[i]);  // silence
-// }
-
 // variables in setup will cause error if defined outside of setup
 void setup() {
   // set audio output pin to behave as digital output 
@@ -41,22 +27,23 @@ void loop() {
 
 
   // list of notes chosen notes for section A
-  int a_elements[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
+  int a_note_list[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
   // variable for section A loop index reference, i.e. loop counter will always match length of list when list is modified
-  int a_size = sizeof(a_elements) / sizeof(int);
+  int a_note_list_length = sizeof(a_note_list) / sizeof(int);
   // list of note lengths for section A, i.e. whole, half, quarter, ...
-  int a_note_len[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+  int a_note_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
   // list of rest lengths for sec A
-  int a_rest_len[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+  int a_rest_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
 
   // list of notes chosen notes for section B
-  int b_elements[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
+  int b_note_list[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
   // variable for section B loop index reference
-  int b_size = sizeof(b_elements) / sizeof(int);
+  int b_size = sizeof(b_note_list) / sizeof(int);
   // list of note lengths for section B, i.e. whole, half, quarter, ...
-  int b_note_len[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+  int b_note_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
   // list of rest lengths for sec B
-  int b_rest_len[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+  int b_rest_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+      
 
   // ######################
   // ## debugging output ##
@@ -67,12 +54,12 @@ void loop() {
   Serial.println(String("tempo: ") + tempo);
   Serial.println("Section A");
   // loop for readout of notes selected for section A
-  for (int i = 0; i < a_size; i++) {
-    Serial.println(String(a_elements[i]) + " Hz" + ", note_len: " + a_note_len[i] + ", rest_len: " + a_rest_len[i]);
+  for (int i = 0; i < a_note_list_length; i++) {
+    Serial.println(String(a_note_list[i]) + " Hz" + ", note_len: " + a_note_length[i] + ", rest_len: " + a_rest_length[i]);
   }
   Serial.println("Section B");
-  for (int i = 0; i < a_size; i++) {
-    Serial.println(String(b_elements[i]) + " Hz" + ", note_len: " + b_note_len[i] + ", rest_len: " + b_rest_len[i]);
+  for (int i = 0; i < a_note_list_length; i++) {
+    Serial.println(String(b_note_list[i]) + " Hz" + ", note_len: " + b_note_length[i] + ", rest_len: " + b_rest_length[i]);
   }
 
   // #############################
@@ -80,8 +67,16 @@ void loop() {
   // #############################
   // internal infinite loop to play section A and section B: random choices only function properly inside void loop()
   while(1) {
+    // loop playing notes in section A with random parameters
+    for (int i = 0; i < a_note_list_length; i++) {
+      tone(ioPin, a_note_list[i], a_note_length[i]); // tone(Pin, Frequency, Duration)
+      delay(a_rest_length[i]); // musical rest
+    }
 
-
-
+    // loop playing notes in section B with random parameters
+    for (int i = 0; i < b_size; i++) {
+      tone(ioPin, b_note_list[i], b_note_length[i]); // tone(Pin, Frequency, Duration)
+      delay(b_rest_length[i]);  // silence
+    }
   }
 }
