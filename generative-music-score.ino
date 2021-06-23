@@ -5,6 +5,20 @@ int i;
 // audio output pin, chosen becuase of built-in LED ease of debugging
 int ioPin = 13;
 
+int A(int a_size, int a_elements, int a_note_len, int a_rest_len) {
+  // loop playing notes in section A with random parameters
+  for (int i = 0; i < a_size; i++) {
+    tone(ioPin, a_elements[i], a_note_len[i]); // tone(Pin, Frequency, Duration)
+    delay(a_rest_len[i]); // musical rest
+  }
+}
+
+// // loop playing notes in section B with random parameters
+// for (int i = 0; i < b_size; i++) {
+//   tone(ioPin, b_elements[i], b_note_len[i]); // tone(Pin, Frequency, Duration)
+//   delay(b_rest_len[i]);  // silence
+// }
+
 // variables in setup will cause error if defined outside of setup
 void setup() {
   // set audio output pin to behave as digital output 
@@ -66,16 +80,8 @@ void loop() {
   // #############################
   // internal infinite loop to play section A and section B: random choices only function properly inside void loop()
   while(1) {
-    // loop playing notes in section A with random parameters
-    for (int i = 0; i < a_size; i++) {
-      tone(ioPin, a_elements[i], a_note_len[i]); // tone(Pin, Frequency, Duration)
-      delay(a_rest_len[i]); // musical rest
-    }
 
-    // loop playing notes in section B with random parameters
-    for (int i = 0; i < b_size; i++) {
-      tone(ioPin, b_elements[i], b_note_len[i]); // tone(Pin, Frequency, Duration)
-      delay(b_rest_len[i]);  // silence
-    }
+
+
   }
 }
