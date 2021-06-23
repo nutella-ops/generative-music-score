@@ -4,7 +4,7 @@ int baseOctave[12] = {110, 116, 123, 130, 138, 146, 155, 164, 174, 184, 195, 207
 int i;
 // audio output pin, chosen becuase of built-in LED ease of debugging
 int ioPin = 13;
-
+// variables in setup will cause error if defined outside of setup
 void setup() {
   // set audio output pin to behave as digital output 
   pinMode(ioPin, OUTPUT);
@@ -20,15 +20,15 @@ void loop() {
   int tempo = random(70,150);
   // tempo-define musical note durations
   int note[5] = {6e4/tempo/1, 6e4/tempo/2, 6e4/tempo/4, 6e4/tempo/8, 6e4/tempo/16};
-  // note strings for serial readout
-  String note_readout[5] = {String("whole"), String("half"), String("quarter"), String("eighth"), String("sixteenth")};
 
-// list of notes chosen notes for section A
+
+  // list of notes chosen notes for section A
   int a_elements[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
   // variable for section A loop index reference, i.e. loop counter will always match length of list when list is modified
   int a_size = sizeof(a_elements) / sizeof(int);
   // list of note types for section A, i.e. whole, half, quarter, ...
   int a_note_len[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
+
 
   // list of notes chosen notes for section B
   int b_elements[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
@@ -37,13 +37,14 @@ void loop() {
   // list of note types for section B, i.e. whole, half, quarter, ...
   int b_note[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
 
-  // visual formatting for serial readout
+
+  // visual formatting for serial READOUT
   Serial.println(String(""));
   // randomly chosen tempo readout
   Serial.println(String("tempo: ") + tempo);
   // loop for readout of notes selected for section A
   for (int i = 0; i < a_size; i++) {
-    Serial.println(String(a_elements[i]) + " Hz" + ", " + note_readout[i]);
+    Serial.println(String(a_elements[i]) + " Hz" + "' " + a_note_len[i]);
   }
 
   // internal infinite loop to play section A and section B: random choices only function properly inside void loop()
