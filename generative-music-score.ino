@@ -15,6 +15,13 @@ void setup() {
   randomSeed(analogRead(0));
 }
 
+// section A packaged into a function
+int section_A(int a_note_list[], int a_note_length[], int a_rest_length[]) {
+    for (int i = 0; i < a_note_list_length; i++) {
+    tone(ioPin, a_note_list[i], a_note_length[i]); // tone(Pin, Frequency, Duration)
+    delay(a_rest_length[i]); // musical rest
+  }
+}
 
 void loop() {
   // #################
@@ -43,8 +50,7 @@ void loop() {
   int b_note_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
   // list of rest lengths for sec B
   int b_rest_length[4] = {note[random(5)], note[random(5)], note[random(5)], note[random(5)]};
-      
-
+  
   // ######################
   // ## debugging output ##
   // ######################
@@ -68,10 +74,7 @@ void loop() {
   // internal infinite loop to play section A and section B: random choices only function properly inside void loop()
   while(1) {
     // loop playing notes in section A with random parameters
-    for (int i = 0; i < a_note_list_length; i++) {
-      tone(ioPin, a_note_list[i], a_note_length[i]); // tone(Pin, Frequency, Duration)
-      delay(a_rest_length[i]); // musical rest
-    }
+
 
     // loop playing notes in section B with random parameters
     for (int i = 0; i < b_size; i++) {
