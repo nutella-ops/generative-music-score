@@ -10,7 +10,7 @@ void setup() {
   // set audio output pin to behave as digital output 
   pinMode(ioPin, OUTPUT);
   // start serial communication for debugging at speed of 9600 baud
-  Serial.begin(9600);
+  Serial.begin(74800);
   // initialize random number generator by reading an analog pin, i.e. white? noise 
   randomSeed(analogRead(0));
 }
@@ -20,14 +20,17 @@ void loop() {
   // ## setup code  ##
   // #################
   // possible tempo ranges
-  int tempo = random(95,150);
+  int tempo = random(75,135);
   // tempo-define musical note durations
   int note[5] = {6e4/tempo/1, 6e4/tempo/2, 6e4/tempo/4, 6e4/tempo/8, 6e4/tempo/16};
   // a randomly selected int to multiply a_note_list values by to simulate different octaves
-  int a_register = random(1,3);
-  // a randomly selected int to multiply a_note_list values by to simulate different octaves
-  int b_register = random(1,4);
-
+  int a_register = random(1,7);
+  // a randomly selected int to multiply b_note_list values by to simulate different octaves
+  int b_register = random(1,7);
+  // chooses 4 bits to determine the final set of A and B sections
+  int section_bits_list[4] = {random(2), random(2), random(2), random(2)};
+  // variable for section_bits_list index reference, i.e. loop counter will always match length of list when list is modified
+  int section_bits_length = sizeof(section_bits_list) / sizeof(int);
 
   // list of notes chosen notes for section A
   int a_note_list[4] = {baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)], baseOctave[random(12)]};
@@ -54,7 +57,11 @@ void loop() {
     Serial.println(String(""));
     // randomly chosen tempo readout
     Serial.println(String("tempo: ") + tempo);
+    
     Serial.println(String("A register: ") + a_register + ", B register: " + b_register);
+    Serial.println(String("Song Structure"));
+    Serial.println(String(section_bits_list[0]) + section_bits_list[1] + section_bits_list[2] + section_bits_list[3]);
+
     Serial.println("Section A");
     // loop for readout of notes selected for section A
     for (int i = 0; i < a_note_list_length; i++) {
@@ -64,22 +71,26 @@ void loop() {
     for (int i = 0; i < b_note_list_length; i++) {
       Serial.println(String(b_note_list[i]*b_register) + " Hz" + ", note_len: " + b_note_length[i] + ", rest_len: " + b_rest_length[i]);
     }
+    
 
   // #############################
   // ## music composition code  ##
   // #############################
   // internal infinite loop to play section A and section B: random choices only function properly inside void loop()
   while(1) {
-    // loop playing notes in section A with random parameters
-    for (int i = 0; i < a_note_list_length; i++) {
-      tone(ioPin, a_note_list[i]*a_register, a_note_length[i]); // tone(Pin, Frequency, Duration)
-      delay(a_rest_length[i]); // musical rest
-    }
-
-    // loop playing notes in section B with random parameters
-    for (int i = 0; i < b_note_list_length; i++) {
-      tone(ioPin, b_note_list[i]*b_register, b_note_length[i]); // tone(Pin, Frequency, Duration)
-      delay(b_rest_length[i]);  // silence
+    for (i = 0; i < section_bits_length; i++) {
+      if (section_bits_list[i] == 0)
+        // loop playing notes in section A with random parameters
+        for (int i = 0; i < a_note_list_length; i++) {
+          tone(ioPin, a_note_list[i]*a_register, a_note_length[i]); // tone(Pin, Frequency, Duration)
+          delay(a_rest_length[i]); // musical rest
+        }
+      else
+        // loop playing notes in section B with random parameters
+        for (int i = 0; i < b_note_list_length; i++) {
+          tone(ioPin, b_note_list[i]*b_register, b_note_length[i]); // tone(Pin, Frequency, Duration)
+          delay(b_rest_length[i]);  // silence
+        }
+      }
     }
   }
-}
