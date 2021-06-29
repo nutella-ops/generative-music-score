@@ -1,0 +1,10 @@
+// tempo definition
+int tempo = random(75,135);
+
+// tempo-defined musical note durations
+int note[5] = {6e4/tempo/1, 6e4/tempo/2, 6e4/tempo/4, 6e4/tempo/8, 6e4/tempo/16};
+
+// time-signature definition
+// time signature requires a known measure length, then a way to choose notes such that they equal the allocated measure
+// have a list of time signature denominators, randomly choose one of those, randomly choose a numerator and use that number as the dimension of the note_list[]
+// then somehow define baseOctave[numerator] and use numerator in a for loop to loop and put baseOctave[random(12)] into every spot in note_list[]
