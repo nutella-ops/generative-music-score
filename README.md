@@ -1,0 +1,2 @@
+# generative-music-score
+This system generates unique 16 note melodies. It randomly chooses 4 notes or rests and assigns them to section A. It repeats the above process and assigns the results to section B. Finally, it randomly chooses 4 bits which determine whether section A or B will be played and stores this information in a list. This final list is iterated through playing each section. The end result creates a 16 note melody using verse-chorus song structure (i.e. AABA, AAAB, ABAB, and so on)
